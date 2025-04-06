@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Matchmaking - Conference Connect</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://img.freepik.com/premium-photo/blurred-participants-meeting-conference-event-stage_29392-175.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #4a90e2;
+    }
+
+    .section {
+      padding: 40px;
+      background-color: rgba(0, 0, 0, 0.6);
+      margin: 20px;
+      border-radius: 12px;
+    }
+
+    .section h2 {
+      color: #4a90e2;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      max-width: 600px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, select {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 12px;
+      font-size: 16px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .matches {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .profile {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      width: 200px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      animation: fadeInUp 0.6s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .profile img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+    }
+
+    footer {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      color: #ccc;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 800px;
+      width: 90%;
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-content h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #4a90e2;
+    }
+
+    .modal-content .matches {
+      gap: 30px;
+    }
+
+    .close-btn {
+      background: red;
+      border: none;
+      padding: 8px 16px;
+      color: white;
+      float: right;
+      cursor: pointer;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>Conference Connect</header>
+
+<nav>
+    <a href="website.html">Home</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="matchmaking.html">Matchmaking</a>
+    <a href="nearby.html">Nearby Attendees</a>
+    <a href="review.html">Write a Review</a>
+    <a href="request.html">Request Conference</a>
+  </nav>
+<div class="section">
+  <h2>Find Your Ideal Match</h2>
+  <form onsubmit="showMatches(event)">
+    <input type="text" placeholder="Your Name" id="userName" required />
+    <input type="text" placeholder="Your Interests" id="userInterests" required />
+    <select id="userLevel" required>
+      <option value="">Select Experience Level</option>
+      <option value="Beginner">Beginner</option>
+      <option value="Intermediate">Intermediate</option>
+      <option value="Expert">Expert</option>
+    </select>
+    <button type="submit">Find Matches</button>
+  </form>
+</div>
+
+<!-- Modal for Matches -->
+<div id="matchModal" class="modal">
+  <div class="modal-content">
+    <h3>Your Matches</h3>
+    <div class="matches" id="matchProfiles"></div>
+    <button class="close-btn" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<footer>&copy; 2025 Conference Connect. All rights reserved.</footer>
+
+<!-- Glitter Canvas Script -->
+<canvas id="glitter"></canvas>
+<script>
+  const canvas = document.getElementById('glitter');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    for (let i = 0; i < 10; i++) {
+      particles.push({
+        x: e.clientX,
+        y: e.clientY,
+        size: Math.random() * 2 + 1,
+        speedX: (Math.random() - 0.5) * 3,
+        speedY: (Math.random() - 0.5) * 3,
+        alpha: 1
+      });
+    }
+  });
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach((p, i) => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+      p.alpha -= 0.02;
+
+      if (p.alpha <= 0) {
+        particles.splice(i, 1);
+      } else {
+        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // Match Modal Logic
+  const people = Array.from({ length: 50 }, (_, i) => ({
+    name: `User ${i + 1}`,
+    field: ['Tech', 'Design', 'Marketing', 'Sales', 'Finance', 'HR'][i % 6],
+    level: ['Beginner', 'Intermediate', 'Expert'][i % 3],
+    img: `https://randomuser.me/api/portraits/${i % 2 === 0 ? 'men' : 'women'}/${i}.jpg`
+  }));
+
+  function showMatches(event) {
+    event.preventDefault();
+    const container = document.getElementById("matchProfiles");
+    container.innerHTML = "";
+
+    const userLevel = document.getElementById("userLevel").value;
+    const filtered = people.filter(p => p.level === userLevel);
+    const shuffled = (filtered.length > 0 ? filtered : people).sort(() => 0.5 - Math.random()).slice(0, 6);
+
+    shuffled.forEach(p => {
+      container.innerHTML += `
+        <div class="profile">
+          <img src="${p.img}" />
+          <h4>${p.name}, ${p.field}</h4>
+          <p>${p.level}</p>
+        </div>
+      `;
+    });
+
+    document.getElementById("matchModal").style.display = "flex";
+  }
+
+  function closeModal() {
+    document.getElementById("matchModal").style.display = "none";
+  }
+</script>
+
+</body>
+</html>
+
+
+
+  <a href="./index.html" class="back-home">⬅ Back to Home</a>
+
+</body>
+</html>

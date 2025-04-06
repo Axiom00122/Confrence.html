@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Conference Connect</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://img.freepik.com/premium-photo/blurred-participants-meeting-conference-event-stage_29392-175.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #4a90e2;
+    }
+
+    .section {
+      padding: 40px;
+      background-color: rgba(0, 0, 0, 0.6);
+      margin: 20px;
+      border-radius: 12px;
+    }
+
+    .section h2 {
+      color: #4a90e2;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .section p {
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .section img {
+      display: block;
+      margin: 0 auto 20px auto;
+      width: 70%;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .iframe-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    iframe {
+      border: none;
+      width: 90%;
+      height: 500px;
+      border-radius: 12px;
+    }
+
+    footer {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      color: #ccc;
+    }
+
+    .glitter {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: sparkle 1s linear forwards;
+      z-index: 9999;
+    }
+
+    @keyframes sparkle {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.5);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Conference Connect
+  </header>
+
+  <nav>
+    <a href="website.html">Home</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="matchmaking.html">Matchmaking</a>
+    <a href="nearby.html">Nearby Attendees</a>
+    <a href="review.html">Write a Review</a>
+    <a href="request.html">Request Conference</a>
+  </nav>
+
+  <div class="section">
+    <img src="https://www.investopedia.com/thmb/Ng1rE9uz27h1xK6lXXTNYFrIYwE=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/video-conferencing-FINAL-8bc4ed1ae67e4f4e9e8018d829d5fa0a.png" alt="Why Use Conference Connect">
+    <h2>Why Use Conference Connect?</h2>
+    <p>Connect, network, and win rewards while attending your favorite business conferences!</p>
+  </div>
+
+  <div class="section">
+    <img src="https://www.proserveit.com/hs-fs/hubfs/Depositphotos_419390500_S%20(1).jpg?width=1000&height=515&name=Depositphotos_419390500_S%20(1).jpg" alt="How It Works">
+    <h2>How It Works</h2>
+    <p>Attend sessions, meet people, gain points, and climb the leaderboard!</p>
+  </div>
+
+  <div class="section">
+    <h2>Widget maker for Conference</h2>
+    <div class="iframe-container">
+      <iframe src="https://www.elfsight.com/news-ticker-widget/" title="Trending Events News"></iframe>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Conference Connect. All rights reserved.
+  </footer>
+
+  <script>
+    document.addEventListener('mousemove', function(e) {
+      const glitter = document.createElement('div');
+      glitter.className = 'glitter';
+      glitter.style.left = `${e.pageX}px`;
+      glitter.style.top = `${e.pageY}px`;
+      document.body.appendChild(glitter);
+      setTimeout(() => glitter.remove(), 1000);
+    });
+  </script>
+
+</body>
+</html>

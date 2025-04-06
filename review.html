@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Write a Review</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://img.freepik.com/premium-photo/blurred-participants-meeting-conference-event-stage_29392-175.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 40px;
+      background-color: rgba(0, 0, 0, 0.6);
+      margin: 40px auto;
+      border-radius: 12px;
+      width: 80%;
+      max-width: 700px;
+    }
+
+    h2 {
+      color: #4a90e2;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 120px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4a90e2;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #357ac7;
+    }
+
+    .success-message {
+      text-align: center;
+      margin-top: 15px;
+      color: lightgreen;
+      display: none;
+    }
+
+    .review-list {
+      margin-top: 40px;
+    }
+
+    .review {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .review strong {
+      color: #4a90e2;
+    }
+
+    .glitter {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: sparkle 1s linear forwards;
+      z-index: 9999;
+    }
+
+    @keyframes sparkle {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.5);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>Write a Review</header>
+
+  <div class="container">
+    <h2>Share your feedback about Conference Connect</h2>
+    <form id="reviewForm">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+      <label for="comment">Your Review</label>
+      <textarea id="comment" name="comment" placeholder="Write your review here..." required></textarea>
+
+      <button type="submit">Submit Review</button>
+    </form>
+
+    <div class="success-message" id="successMsg">✅ Review submitted successfully! Redirecting to home...</div>
+
+    <div class="review-list" id="reviewList"></div>
+  </div>
+
+  <script>
+    // Glitter trail
+    document.addEventListener('mousemove', function(e) {
+      const glitter = document.createElement('div');
+      glitter.className = 'glitter';
+      glitter.style.left = `${e.pageX}px`;
+      glitter.style.top = `${e.pageY}px`;
+      document.body.appendChild(glitter);
+      setTimeout(() => glitter.remove(), 1000);
+    });
+
+    // Handle Review Submission
+    document.getElementById('reviewForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const comment = document.getElementById('comment').value.trim();
+
+      if (name && comment) {
+        const reviewContainer = document.getElementById('reviewList');
+        const newReview = document.createElement('div');
+        newReview.className = 'review';
+        newReview.innerHTML = `<strong>${name}</strong><p>${comment}</p>`;
+        reviewContainer.prepend(newReview);
+
+        document.getElementById('successMsg').style.display = 'block';
+        this.reset();
+
+        // Redirect to home after 2.5 seconds
+        setTimeout(() => {
+          window.location.href = 'website.html';
+        }, 2500);
+      }
+    });
+  </script>
+
+</body>
+</html>
+

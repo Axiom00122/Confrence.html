@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Request Conference</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://img.freepik.com/premium-photo/blurred-participants-meeting-conference-event-stage_29392-175.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 40px;
+      background-color: rgba(0, 0, 0, 0.6);
+      margin: 40px auto;
+      border-radius: 12px;
+      width: 80%;
+      max-width: 600px;
+    }
+
+    h2 {
+      color: #4a90e2;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4a90e2;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #357ac7;
+    }
+
+    .success-message {
+      text-align: center;
+      margin-top: 20px;
+      color: lightgreen;
+      font-weight: bold;
+      display: none;
+    }
+
+    .glitter {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: sparkle 1s linear forwards;
+      z-index: 9999;
+    }
+
+    @keyframes sparkle {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.5);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>Request a Conference</header>
+
+  <div class="container">
+    <h2>Send a Conference Request</h2>
+    <form id="conferenceForm">
+      <label for="name">Connection's Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter connection name" required>
+
+      <label for="attendeeId">Attendee Number</label>
+      <input type="number" id="attendeeId" name="attendeeId" placeholder="Enter attendee number" required>
+
+      <button type="submit">Send Request</button>
+    </form>
+    <div class="success-message" id="successMsg">🎉 Request Sent Successfully! Redirecting to Home...</div>
+  </div>
+
+  <script>
+    // Glitter effect
+    document.addEventListener('mousemove', function(e) {
+      const glitter = document.createElement('div');
+      glitter.className = 'glitter';
+      glitter.style.left = `${e.pageX}px`;
+      glitter.style.top = `${e.pageY}px`;
+      document.body.appendChild(glitter);
+      setTimeout(() => glitter.remove(), 1000);
+    });
+
+    // Form handling and redirect
+    document.getElementById('conferenceForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('successMsg').style.display = 'block';
+      this.reset();
+      setTimeout(() => {
+        window.location.href = "website.html"; // Redirect after 3 seconds
+      }, 3000);
+    });
+  </script>
+
+</body>
+</html>

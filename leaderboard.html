@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leaderboard - Conference Connect</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://img.freepik.com/premium-photo/blurred-participants-meeting-conference-event-stage_29392-175.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #4a90e2;
+    }
+
+    .section {
+      padding: 40px;
+      background-color: rgba(0, 0, 0, 0.6);
+      margin: 20px;
+      border-radius: 12px;
+    }
+
+    .section h2 {
+      color: #4a90e2;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .leaderboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+
+    .leader, .review-card, .attendee {
+      background-color: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      width: 180px;
+    }
+
+    .leader img, .review-card img, .attendee img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .reviews, .attendees {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    footer {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      color: #ccc;
+    }
+
+    .glitter {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.7;
+      animation: glitterFade 0.8s ease-out forwards;
+    }
+
+    @keyframes glitterFade {
+      to {
+        transform: translateY(10px) scale(0.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Conference Connect
+  </header>
+
+  <nav>
+    <a href="website.html">Home</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="matchmaking.html">Matchmaking</a>
+    <a href="nearby.html">Nearby Attendees</a>
+    <a href="review.html">Write a Review</a>
+    <a href="request.html">Request Conference</a>
+  </nav>
+
+  <div class="section">
+    <h2>Top 10 Attendees</h2>
+    <div class="leaderboard">
+      <div class="leader">
+        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Attendee">
+        <h3>John Doe</h3>
+        <p>2450 Points</p>
+      </div>
+      <div class="leader">
+        <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Attendee">
+        <h3>Emily Rose</h3>
+        <p>2330 Points</p>
+      </div>
+      <div class="leader">
+        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Attendee">
+        <h3>Chris Ray</h3>
+        <p>2280 Points</p>
+      </div>
+      <div class="leader">
+        <img src="https://randomuser.me/api/portraits/women/4.jpg" alt="Attendee">
+        <h3>Nina D.</h3>
+        <p>2240 Points</p>
+      </div>
+      <div class="leader">
+        <img src="https://randomuser.me/api/portraits/men/5.jpg" alt="Attendee">
+        <h3>Steve R.</h3>
+        <p>2200 Points</p>
+      </div>
+      <div class="leader">
+        <img src="https://randomuser.me/api/portraits/men/6.jpg" alt="Attendee">
+        <h3>Raj K.</h3>
+        <p>2170 Points</p>
+      </div>
+      <div class="leader">
+        <img src="https://randomuser.me/api/portraits/women/7.jpg" alt="Attendee">
+        <h3>Alina P.</h3>
+        <p>2145 Points</p>
+      </div>
+      <div class="leader">
+        <img src="https://randomuser.me/api/portraits/men/8.jpg" alt="Attendee">
+        <h3>Leo M.</h3>
+        <p>2105 Points</p>
+      </div>
+      <div class="leader">
+        <img src="https://randomuser.me/api/portraits/women/9.jpg" alt="Attendee">
+        <h3>Mira V.</h3>
+        <p>2080 Points</p>
+      </div>
+      <div class="leader">
+        <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="Attendee">
+        <h3>Adrian G.</h3>
+        <p>2050 Points</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Past Reviews & Comments</h2>
+    <div class="reviews">
+      <div class="review-card">
+        <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Reviewer">
+        <h3>David R.</h3>
+        <p>"This platform helped me meet people I would've never connected with otherwise. Amazing idea!"</p>
+      </div>
+      <div class="review-card">
+        <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Reviewer">
+        <h3>Sarah L.</h3>
+        <p>"Loved the leaderboard feature. It made the event feel like a fun challenge!"</p>
+      </div>
+      <div class="review-card">
+        <img src="https://randomuser.me/api/portraits/men/13.jpg" alt="Reviewer">
+        <h3>Michael S.</h3>
+        <p>"Conference Connect added a spark to my regular business meetups. Highly recommend it!"</p>
+      </div>
+      <div class="review-card">
+        <img src="https://randomuser.me/api/portraits/women/14.jpg" alt="Reviewer">
+        <h3>Anjali T.</h3>
+        <p>"Great UI and amazing concept! The networking was effortless and engaging."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>All Attendees</h2>
+    <div class="attendees">
+      <!-- 100 attendee cards -->
+      
+      <!-- Sample 100 attendees -->
+      <!-- You can repeat or dynamically generate similar cards in actual project -->
+      <!-- For demo purposes, let's do just a loop here in JS or render server-side in production -->
+      <script>
+        const attendeesContainer = document.currentScript.parentElement;
+        for (let i = 1; i <= 100; i++) {
+          const card = document.createElement('div');
+          card.className = 'attendee';
+          card.innerHTML = `
+            <img src="https://randomuser.me/api/portraits/lego/${i % 10}.jpg" alt="Attendee ${i}">
+            <h3>Attendee ${i}</h3>
+            <p>Joined Conference</p>
+          `;
+          attendeesContainer.appendChild(card);
+        }
+      </script>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Conference Connect. All rights reserved.
+  </footer>
+
+  <script>
+    document.addEventListener("mousemove", (e) => {
+      const sparkle = document.createElement("div");
+      sparkle.classList.add("glitter");
+      sparkle.style.left = `${e.clientX}px`;
+      sparkle.style.top = `${e.clientY}px`;
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 800);
+    });
+  </script>
+
+</body>
+</html>

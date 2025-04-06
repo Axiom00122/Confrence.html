@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nearby Attendees</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://img.freepik.com/premium-photo/blurred-participants-meeting-conference-event-stage_29392-175.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #4a90e2;
+    }
+
+    .container {
+      padding: 40px;
+    }
+
+    .controls {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .attendee {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 10px auto;
+      max-width: 600px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .attendee img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+
+    footer {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      color: #ccc;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="sparkleCanvas"></canvas>
+  <header>Nearby Attendees</header>
+
+  <nav>
+    <a href="website.html">Home</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="matchmaking.html">Matchmaking</a>
+    <a href="nearby.html">Nearby Attendees</a>
+    <a href="review.html">Write a Review</a>
+    <a href="request.html">Request Conference</a>
+  </nav>
+
+  <div class="container">
+    <div class="controls">
+      <label for="sort">Sort by:</label>
+      <select id="sort" onchange="sortAttendees()">
+        <option value="name">Name</option>
+        <option value="distance">Distance</option>
+      </select>
+    </div>
+
+    <div id="attendeeList"></div>
+  </div>
+
+  <footer>
+    &copy; 2025 Conference Connect. All rights reserved.
+  </footer>
+
+  <script>
+    const attendees = Array.from({length: 50}, (_, i) => ({
+      name: `Attendee ${String.fromCharCode(65 + (i % 26))}${i}`,
+      distance: Math.floor(Math.random() * 100) + 1,
+      img: `https://randomuser.me/api/portraits/${i % 2 === 0 ? 'men' : 'women'}/${i}.jpg`
+    }));
+
+    function renderAttendees(list) {
+      const container = document.getElementById('attendeeList');
+      container.innerHTML = '';
+      list.forEach(att => {
+        container.innerHTML += `
+          <div class="attendee">
+            <img src="${att.img}" alt="${att.name}" />
+            <div>
+              <h3>${att.name}</h3>
+              <p>Distance: ${att.distance} meters</p>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function sortAttendees() {
+      const sortValue = document.getElementById('sort').value;
+      const sorted = [...attendees].sort((a, b) => {
+        if (sortValue === 'name') return a.name.localeCompare(b.name);
+        if (sortValue === 'distance') return a.distance - b.distance;
+      });
+      renderAttendees(sorted);
+    }
+
+    renderAttendees(attendees);
+
+    // Glitter effect
+    const canvas = document.getElementById("sparkleCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const sparkles = [];
+
+    document.addEventListener("mousemove", e => {
+      for (let i = 0; i < 5; i++) {
+        sparkles.push({
+          x: e.clientX,
+          y: e.clientY,
+          size: Math.random() * 4 + 1,
+          life: 100
+        });
+      }
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = sparkles.length - 1; i >= 0; i--) {
+        const s = sparkles[i];
+        ctx.fillStyle = `rgba(255,255,255,${s.life / 100})`;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fill();
+        s.life--;
+        s.y -= 1;
+        if (s.life <= 0) sparkles.splice(i, 1);
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
